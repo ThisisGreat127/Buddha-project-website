@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        h1{
+            color:rgb(255, 255, 255);
+            background-color: black;
+        }
+        .pt-10{ padding-top: 10px; }
+        .pb-10{ padding-bottom: 10px; }
+        .mt-10{ margin-top: 10px; }
+        .box{
+            background-color: black;
+            transition-duration: 2s;
+        }
+        .box:hover{ background-color: rgb(174, 108, 1); }
+        
+
+        .container{
+            width: 80vw;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: row;    
+            flex-wrap: wrap;         
+            justify-content: center; 
+            gap: 20px;               
+            padding: 20px;
+            margin: auto;
+        }
+        .img-16-9 {
+            width: 100%;           /* Fill the container width */
+            aspect-ratio: 16 / 9;  /* Force the ratio */
+            object-fit: cover;     /* Crop the edges so it doesn't look squashed */
+            object-position: center; /* Keeps Buddha centered during the crop */
+        }
+    </style>
+</head>
+    <center>
+        <a href="https://youtu.be/IHyotnCw1fA?si=l8IyH5YjJK9hKUxp">
+            <h1 class="pt-10 pb-10 box">ธรรมะจรรโลงใจ</h1>
+        </a>
+        <p class="mt-10 p">หลักธรรมวันนี้ เสนอ</p>
+    </center>
+    <img src="buddha-bg2.png" class="img-fluid img-16-9" alt="Buddha Background">
+
+    
+</body>
+</html>
