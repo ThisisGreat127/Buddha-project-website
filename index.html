@@ -17,11 +17,13 @@
 
         h1.box {
             color: white;
-            background: linear-gradient(135deg, #2c3e50, #000000);
-            padding: 20px;
+            background: linear-gradient(135deg, #8B4513, #2c3e50);
+            padding: 25px;
             margin: 0;
             transition: 0.5s;
             text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: floating 3s infinite ease-in-out;
         }
 
         .box:hover {
@@ -85,7 +87,6 @@
             }
         }
 
-        /* 4. หน้าต่าง Modal แบบกระจกฝ้า */
         .modal {
             display: none;
             position: fixed;
@@ -94,29 +95,37 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 10% auto;
-            padding: 30px;
+            background: #fffaf0;
+            margin: 12% auto;
+            padding: 35px;
             width: 90%;
-            max-width: 450px;
-            border-radius: 20px;
+            max-width: 480px;
+            border-radius: 30px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            animation: zoomIn 0.3s ease;
+            border: 3px solid #8B4513;
+            animation: bounceIn 0.5s;
         }
 
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
                 opacity: 0;
             }
 
-            to {
+            50% {
+                transform: scale(1.05);
+            }
+
+            70% {
+                transform: scale(0.9);
+            }
+
+            100% {
                 transform: scale(1);
                 opacity: 1;
             }
@@ -156,14 +165,28 @@
                 transform: translateY(110vh) rotate(360deg);
             }
         }
+
+        #musicToggle {
+            border-radius: 20px;
+            border: 1px solid #8B4513;
+            color: #8B4513;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            background: white;
+        }
+
+        #musicToggle:hover {
+            background: #8B4513;
+            color: white;
+        }
     </style>
 </head>
 
 <body>
 
     <header class="text-center">
-        <a href="https://youtu.be/IHyotnCw1fA?si=l8IyH5YjJK9hKUxp" target="_blank" style="text-decoration: none;">
-            <h1 class="box">ธรรมะจรรโลงใจ</h1>
+        <a href="https://youtu.be/VcT0POkQI6M?si=GqjiXour1SG0Js4D" target="_blank" style="text-decoration: none;">
+            <h1 class="box">ธรรมะจรรโลงใจ ( คลิ๊กที่นี่ )</h1>
         </a>
         <p class="mt-3">หลักธรรม ๑๐ ประการ (กดที่ใบโพธิ์เพื่ออ่านคติธรรม)</p>
     </header>
@@ -183,7 +206,7 @@
 
 
 
-        <div class="leaf-wrapper" style="top: 1%; left: 50%;"
+        <div class="leaf-wrapper" style="top: 1%; left: 40%;"
             onclick="openLeaf('ธรรมะข้อที่ 2: ศีล (ความประพฤติดี): การรักษากาย วาจา ให้สะอาดบริสุทธิ์')">
 
             <img src="leaf.png" class="leaf-img">
@@ -262,6 +285,137 @@
 
         </div>
 
+        <div class="leaf-wrapper" style="top: 1%; left: 50%;"
+            onclick="openLeaf('ธรรมะข้อที่ 4: อาชชวะ (ความซื่อตรง) : ซื่อสัตย์ ไร้มารยา ปฏิบัติภารกิจโดยสุจริต มีความจริงใจ ไม่หลอกลวง')">
+
+            <img src="leaf.png" class="leaf-img">
+
+        </div>
+
+    </div>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card border-0 shadow-sm"
+                    style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.7);">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="text-center mb-4" style="color: #8B4513; font-weight: bold;">
+                            ศึกษาเพิ่มเติม: ทศพิธราชธรรม ๑๐
+                        </h2>
+                        <p class="text-center text-muted mb-5">
+                            จริยวัตรที่พระเจ้าแผ่นดินทรงปฏิบัติเป็นหลักธรรมประจำพระองค์
+                            หรือหลักการบริหารปกครองบ้านเมืองให้มีความสงบสุข</p>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">1</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">ทาน (Giving)</strong>
+                                            <p class="small text-secondary mb-0">การให้ การเสียสละ
+                                                ทรัพย์สินหรือสิ่งของเพื่อช่วยเหลือบรรเทาทุกข์ผู้อื่น</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">2</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">ศีล (Morality)</strong>
+                                            <p class="small text-secondary mb-0">การรักษากาย วาจา ให้เรียบร้อย สง่างาม
+                                                และเป็นแบบอย่างที่ดี</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">3</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">บริจาค (Altruism)</strong>
+                                            <p class="small text-secondary mb-0">การเสียสละความสุขส่วนตัว
+                                                เพื่อประโยชน์และความสุขของส่วนรวม</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">4</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">อาชชวะ (Honesty)</strong>
+                                            <p class="small text-secondary mb-0">ความซื่อตรง จริงใจ
+                                                ปฏิบัติหน้าที่ด้วยความสุจริต ไม่หลอกลวง</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">5</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">มัททวะ (Gentleness)</strong>
+                                            <p class="small text-secondary mb-0">ความอ่อนโยน มีสัมมาคารวะ ไม่เย่อหยิ่ง
+                                                มีสง่าราศีที่น่าเคารพ</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">6</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">ตบะ (Self-Control)</strong>
+                                            <p class="small text-secondary mb-0">การยับยั้งชั่งใจ
+                                                เพียรพยายามทำกิจการงานให้สำเร็จไม่ท้อถอย</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">7</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">อักโกธะ (Non-anger)</strong>
+                                            <p class="small text-secondary mb-0">ความไม่โกรธ มีเมตตาธรรม
+                                                ไม่ใช้อารมณ์ในการตัดสินปัญหา</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">8</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">อวิหิงสา (Non-violence)</strong>
+                                            <p class="small text-secondary mb-0">ความไม่เบียดเบียน
+                                                ไม่ก่อทุกข์ให้แก่ผู้อื่นโดยเจตนา</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">9</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">ขันติ (Patience)</strong>
+                                            <p class="small text-secondary mb-0">ความอดทนต่ออุปสรรค ความเหนื่อยยาก
+                                                และคำวิพากษ์วิจารณ์</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0 d-flex align-items-start mb-3">
+                                        <span class="badge rounded-pill me-3"
+                                            style="background-color: #8B4513; padding: 10px 15px;">10</span>
+                                        <div>
+                                            <strong style="color: #5d2e0a;">อวิโรธนะ (Justice)</strong>
+                                            <p class="small text-secondary mb-0">ความไม่คลาดจากธรรม
+                                                การตั้งมั่นในความถูกต้องและยุติธรรม</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-2">
+        <button id="musicToggle" class="btn btn-outline-secondary btn-sm" onclick="toggleMusic()">
+            🔇 ปิดเสียงเพลง
+        </button>
     </div>
 
     <div id="modal" class="modal">
@@ -278,21 +432,42 @@
     </audio>
 
     <script>
-        // 1. เตรียมเสียงคลิก (ใช้ URL ตัวอย่าง หรือไฟล์ในเครื่อง)
+        // 1. เตรียมเสียงและเพลง
         const clickSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
-
-        // 2. ระบบเพลงพื้นหลัง
         const bgMusic = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicToggle");
+
+        let isMuted = false;
+
+        // 2. ฟังก์ชันเริ่มเล่นเพลง (เมื่อ User มีการคลิกครั้งแรก)
         function startExperience() {
+            bgMusic.volume = 1.0; // ตั้งความดังเริ่มต้น 100%
             bgMusic.play().catch(() => console.log("รอ User Click"));
             document.removeEventListener('click', startExperience);
         }
         document.addEventListener('click', startExperience);
 
-        // 3. ฟังก์ชันเปิด-ปิด Modal พร้อมเสียง
+        // 3. ฟังก์ชันสลับ เปิด/ปิด เสียง (Mute/Unmute)
+        function toggleMusic() {
+            isMuted = !isMuted;
+            bgMusic.muted = isMuted; // ปิดหรือเปิดเสียง
+
+            // เปลี่ยนข้อความและไอคอนบนปุ่ม
+            if (isMuted) {
+                musicBtn.innerHTML = "🔊 เปิดเสียงเพลง";
+                musicBtn.classList.replace("btn-outline-secondary", "btn-secondary");
+            } else {
+                musicBtn.innerHTML = "🔇 ปิดเสียงเพลง";
+                musicBtn.classList.replace("btn-secondary", "btn-outline-secondary");
+            }
+        }
+
+        // 4. ฟังก์ชันเปิด-ปิด Modal
         function openLeaf(text) {
-            clickSound.currentTime = 0;
-            clickSound.play();
+            if (!isMuted) { // เล่นเสียงคลิกเฉพาะตอนไม่ Mute
+                clickSound.currentTime = 0;
+                clickSound.play();
+            }
             document.getElementById('dhamma-text').innerText = text;
             document.getElementById('modal').style.display = 'block';
         }
@@ -305,25 +480,20 @@
             if (event.target == document.getElementById('modal')) closeLeaf();
         }
 
-        // 4. ระบบใบไม้ร่วง (Background Animation)
+        // 5. ระบบใบไม้ร่วง (คงเดิม)
         function createFallingLeaf() {
             const leaf = document.createElement('div');
             leaf.classList.add('falling-leaf');
-
             leaf.style.left = Math.random() * 100 + "vw";
             const duration = Math.random() * 5 + 5;
             leaf.style.animationDuration = duration + "s";
             leaf.style.opacity = Math.random();
-
             const size = Math.random() * 20 + 10 + "px";
             leaf.style.width = size;
             leaf.style.height = size;
-
             document.body.appendChild(leaf);
-
             setTimeout(() => { leaf.remove(); }, duration * 1000);
         }
-
         setInterval(createFallingLeaf, 600);
     </script>
 
