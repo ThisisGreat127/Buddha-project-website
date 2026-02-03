@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -59,21 +60,95 @@
             border-radius: 20px;
         }
 
+=======
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: rgb(255, 255, 255);
+            background-color: black;
+        }
+
+        .pt-10 {
+            padding-top: 10px;
+        }
+
+        .pb-10 {
+            padding-bottom: 10px;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .box {
+            background-color: black;
+            transition-duration: 2s;
+        }
+
+        .box:hover {
+            background-color: rgb(174, 108, 1);
+        }
+
+
+        .container {
+            width: 80vw;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            margin: auto;
+        }
+
+         .img-16-9 {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+         /* Leaf Interaction */
+>>>>>>> 49928f8 (repair project)
         .leaf-wrapper {
             position: absolute;
             z-index: 100;
             cursor: pointer;
+<<<<<<< HEAD
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+=======
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 8%; /* ปรับขนาดตามความกว้างรูป */
+            min-width: 40px;
+>>>>>>> 49928f8 (repair project)
         }
 
         .leaf-wrapper:hover {
             transform: scale(1.5) rotate(15deg);
+<<<<<<< HEAD
             filter: drop-shadow(0 0 15px #ffd700);
         }
 
         .leaf-img {
             width: 65px;
             height: auto;
+=======
+            z-index: 101;
+        }
+
+        .leaf-img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+>>>>>>> 49928f8 (repair project)
             animation: sway 4s infinite ease-in-out;
             transform-origin: top center;
         }
@@ -83,6 +158,7 @@
             50% { transform: rotate(10deg); }
         }
 
+<<<<<<< HEAD
         /* 3. ระบบละอองธรรม (Particles) */
         .particle {
             position: absolute;
@@ -93,16 +169,27 @@
         }
 
         /* 4. หน้าต่าง Modal */
+=======
+        /* Modal Customization */
+>>>>>>> 49928f8 (repair project)
         .modal {
             display: none;
             position: fixed;
             z-index: 2000;
+<<<<<<< HEAD
             left: 0; top: 0; width: 100%; height: 100%;
+=======
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+>>>>>>> 49928f8 (repair project)
             background-color: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(8px);
         }
 
         .modal-content {
+<<<<<<< HEAD
             background: #fffaf0;
             margin: 12% auto;
             padding: 35px;
@@ -249,3 +336,56 @@
             // เล่นเสียงถ้ามี
             try {
                 const clickSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3
+=======
+            background: #fff;
+            margin: 15vh auto;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 30px;
+            text-align: center;
+            border: 4px solid var(--primary-brown);
+            animation: modalPop 0.4s ease-out;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<center>
+    <a href="https://youtu.be/IHyotnCw1fA?si=l8IyH5YjJK9hKUxp">
+        <h1 class="pt-10 pb-10 box">ธรรมะจรรโลงใจ</h1>
+    </a>
+    <p class="mt-10 p">หลักธรรมวันนี้ เสนอ</p>
+</center>
+<img src="buddha-bg2.png" class="img-fluid" alt="Buddha Background">
+
+<audio id="myAudio" loop>
+    <source src="guitar-sound.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // ฟังก์ชันสำหรับสั่งให้เพลงเล่น
+    function playMusic() {
+        var audio = document.getElementById("myAudio");
+        audio.play().catch(function (error) {
+            console.log("Autoplay ถูกบล็อกโดยเบราว์เซอร์ ต้องมีการโต้ตอบก่อน");
+        });
+        // เมื่อเริ่มเล่นแล้ว ให้ลบ Event Listener ออกเพื่อไม่ให้รันซ้ำ
+        document.removeEventListener('click', playMusic);
+        document.removeEventListener('touchstart', playMusic);
+    }
+
+    // รอให้ผู้ใช้คลิกหรือทัชหน้าจอครั้งแรก เพลงถึงจะเริ่ม
+    document.addEventListener('click', playMusic);
+    document.addEventListener('touchstart', playMusic);
+</script>
+
+
+
+</body>
+
+</html>
+>>>>>>> 49928f8 (repair project)
