@@ -297,7 +297,60 @@
 
         setInterval(createFallingLeaf, 600);
     </script>
+<script>
+    // 1. ฟังก์ชันเปิดหน้าต่าง (เปิด Modal)
+    function openLeaf(text) {
+        // อัปเดตข้อความธรรมะลงใน Modal
+        document.getElementById('dhamma-text').innerText = text;
+        // แสดงหน้าต่าง Modal
+        document.getElementById('modal').style.display = "block";
+        
+        // หมายเหตุ: หากเดิมมีคำสั่งเล่นเสียง (audio.play()) อยู่ในนี้ 
+        // ผมได้ตัดออกเพื่อป้องกันเสียงตะโกนหรือเสียงที่ไม่ต้องการครับ
+    }
 
+    // 2. ฟังก์ชันปิดหน้าต่าง
+    function closeLeaf() {
+        document.getElementById('modal').style.display = "none";
+    }
+
+    // 3. ปิด Modal เมื่อคลิกพื้นที่ว่างข้างนอกหน้าต่าง
+    window.onclick = function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // 4. ระบบใบไม้ร่วงพื้นหลัง (Background Animation)
+    function createFallingLeaf() {
+        const leaf = document.createElement('div');
+        leaf.classList.add('falling-leaf');
+
+        // สุ่มตำแหน่งเริ่มต้นตามความกว้างหน้าจอ
+        leaf.style.left = Math.random() * 100 + "vw";
+        
+        // สุ่มระยะเวลาการร่วง (5-10 วินาที)
+        const duration = Math.random() * 5 + 5;
+        leaf.style.animationDuration = duration + "s";
+        
+        // สุ่มความโปร่งใสและขนาด
+        leaf.style.opacity = Math.random();
+        const size = Math.random() * 20 + 20 + "px"; // ปรับขนาดให้ใหญ่ขึ้นเล็กน้อย
+        leaf.style.width = size;
+        leaf.style.height = size;
+
+        document.body.appendChild(leaf);
+
+        // ลบใบไม้ออกเมื่อร่วงจบเพื่อไม่ให้เครื่องค้าง
+        setTimeout(() => { 
+            leaf.remove(); 
+        }, duration * 1000);
+    }
+
+    // สั่งให้ใบไม้ร่วงทุกๆ 0.6 วินาที
+    setInterval(createFallingLeaf, 600);
+</script>
 </body>
 
 </html>
