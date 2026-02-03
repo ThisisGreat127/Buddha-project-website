@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>ธรรมะจรรโลงใจ</title>
     <style>
-        /* 1. ปรับโทนสีให้ดูนุ่มนวล (Zen Style) */
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;500;700&display=swap');
+
         body {
             background-color: #fdf5e6;
             font-family: 'Sarabun', sans-serif;
             overflow-x: hidden;
             margin: 0;
+            color: #5d2e0a;
         }
 
+        /* 1. หัวข้อแบบ Floating */
         h1.box {
             color: white;
-            background: linear-gradient(135deg, #2c3e50, #000000);
-            padding: 20px;
+            background: linear-gradient(135deg, #8B4513, #2c3e50);
+            padding: 25px;
             margin: 0;
             transition: 0.5s;
             text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: floating 3s infinite ease-in-out;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .box:hover {
-            background: #8b4513;
+            background: #5d2e0a;
+            letter-spacing: 2px;
         }
 
-        /* 2. ส่วนของต้นไม้ */
+        /* 2. ส่วนของต้นไม้และใบไม้ */
         .tree-container {
             position: relative;
             width: fit-content;
-            margin: 20px auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
+            margin: 40px auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
             background: white;
             line-height: 0;
-            /* แก้ช่องว่างใต้รูป */
+            perspective: 1000px;
         }
 
         .img-16-9 {
@@ -46,115 +56,94 @@
             height: auto;
             aspect-ratio: 16 / 9;
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 20px;
         }
 
-        /* 3. ใบไม้บนต้นไม้ */
         .leaf-wrapper {
             position: absolute;
             z-index: 100;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .leaf-wrapper:hover {
-            transform: scale(1.4) rotate(10deg);
-        }
-
-        .leaf-wrapper:hover .leaf-img {
-            filter: drop-shadow(0 0 10px rgba(255, 223, 0, 0.8));
+            transform: scale(1.5) rotate(15deg);
+            filter: drop-shadow(0 0 15px #ffd700);
         }
 
         .leaf-img {
-            width: 60px;
-            /* ปรับขนาดให้พอดี */
+            width: 65px;
             height: auto;
-            animation: sway 3s infinite ease-in-out;
+            animation: sway 4s infinite ease-in-out;
             transform-origin: top center;
         }
 
         @keyframes sway {
-
-            0%,
-            100% {
-                transform: rotate(-8deg);
-            }
-
-            50% {
-                transform: rotate(8deg);
-            }
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
         }
 
-        /* 4. หน้าต่าง Modal แบบกระจกฝ้า */
+        /* 3. ระบบละอองธรรม (Particles) */
+        .particle {
+            position: absolute;
+            background: gold;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* 4. หน้าต่าง Modal */
         .modal {
             display: none;
             position: fixed;
             z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 10% auto;
-            padding: 30px;
+            background: #fffaf0;
+            margin: 12% auto;
+            padding: 35px;
             width: 90%;
-            max-width: 450px;
-            border-radius: 20px;
+            max-width: 480px;
+            border-radius: 30px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            animation: zoomIn 0.3s ease;
+            border: 3px solid #8B4513;
+            animation: bounceIn 0.5s;
         }
 
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .close-btn {
             background: #8B4513;
             color: white;
             border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            margin-top: 20px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
             transition: 0.3s;
         }
 
         .close-btn:hover {
             background: #5d2e0a;
-            transform: translateY(-2px);
+            transform: scale(1.1);
         }
 
-        /* 5. แอนิเมชันใบไม้ร่วงพื้นหลัง */
+        /* 5. ใบไม้ร่วงพื้นหลัง */
         .falling-leaf {
             position: fixed;
             top: -50px;
             z-index: 999;
             pointer-events: none;
-            background-image: url('leaf.png');
-            /* ตรวจสอบชื่อไฟล์ให้ถูกต้อง */
-            background-size: contain;
-            background-repeat: no-repeat;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
+            opacity: 0.6;
+            filter: sepia(0.5);
         }
     </style>
 </head>
@@ -162,142 +151,101 @@
 <body>
 
     <header class="text-center">
-        <a href="https://youtu.be/IHyotnCw1fA?si=l8IyH5YjJK9hKUxp" target="_blank" style="text-decoration: none;">
-            <h1 class="box">ธรรมะจรรโลงใจ</h1>
+        <a href="https://youtu.be/VcT0POkQI6M" target="_blank" style="text-decoration: none;">
+            <h1 class="box">✨ ธรรมะจรรโลงใจ ( คลิ๊กเพื่อฟังเสียงธรรม )</h1>
         </a>
-        <p class="mt-3">หลักธรรม ๑๐ ประการ (กดที่ใบโพธิ์เพื่ออ่านคติธรรม)</p>
+        <p class="mt-4 fw-bold">🍃 หลักธรรม ๑๐ ประการ <br><small class="text-muted">( แตะที่ใบโพธิ์เพื่อรับแสงแห่งปัญญา )</small></p>
     </header>
 
-    <div class="tree-container">
+    <div class="tree-container" id="tree">
+        <img src="buddha-bg2.png" onerror="this.src='https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&q=80&w=1000'" class="img-fluid img-16-9" alt="Buddha Background">
 
-        <img src="buddha-bg2.png" class="img-fluid img-16-9" alt="Buddha Background">
-
-
-
-        <div class="leaf-wrapper" style="top: 2%; left: 35%;"
-            onclick="openLeaf('ธรรมะข้อที่ 1: ทาน (การให้): การสละทรัพย์สิ่งของเพื่อสงเคราะห์ผู้อื่น')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 15%; left: 20%;" onclick="openLeaf('ทาน (Giving): การแบ่งปันคือจุดเริ่มต้นของความสุขที่แท้จริง', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 50%;"
-            onclick="openLeaf('ธรรมะข้อที่ 2: ศีล (ความประพฤติดี): การรักษากาย วาจา ให้สะอาดบริสุทธิ์')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 10%; left: 45%;" onclick="openLeaf('ศีล (Morality): ความปกติของกายและวาจา นำมาซึ่งความสงบใจ', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 70%;"
-            onclick="openLeaf('ธรรมะข้อที่ 3: บริจาค (การเสียสละ): การเสียสละความสุขส่วนตนเพื่อประโยชน์ส่วนรวม')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 18%; left: 75%;" onclick="openLeaf('บริจาค (Altruism): การละวางความเห็นแก่ตัว ทำให้ใจกว้างขวางดั่งมหาสมุทร', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 10%;"
-            onclick="openLeaf('ธรรมะข้อที่ 4: อาชชวะ (ความซื่อตรง): มีความจริงใจ ไม่หลอกลวง ปฏิบัติหน้าที่ด้วยความสุจริต')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 40%; left: 10%;" onclick="openLeaf('อาชชวะ (Honesty): ความซื่อตรงคือเกราะคุ้มครองภัยที่ดีที่สุด', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 26%;"
-            onclick="openLeaf('ธรรมะข้อที่ 5: มัททวะ (ความอ่อนโยน): มีสัมมาคารวะ อ่อนโยนต่อบุคคลทั่วไป ไม่เย่อหยิ่ง')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 35%; left: 30%;" onclick="openLeaf('มัททวะ (Gentleness): อ่อนโยนแต่ไม่อ่อนแอ แข็งแกร่งแต่ไม่แข็งกระด้าง', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 10%;"
-            onclick="openLeaf('ธรรมะข้อที่ 6: ตบะ (ความเพียร): การแผดเผากิเลส มีความมุ่งมั่นในการทำงานไม่ย่อท้อ')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 45%; left: 55%;" onclick="openLeaf('ตบะ (Self-Control): การชนะใจตนเอง คือชัยชนะที่ยิ่งใหญ่ที่สุด', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 20%;"
-            onclick="openLeaf('ธรรมะข้อที่ 7: อักโกธะ (ความไม่โกรธ): การระงับความโกรธ ใช้สติและเหตุผลในการแก้ปัญหา')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 38%; left: 85%;" onclick="openLeaf('อักโกธะ (Non-anger): ดับไฟโกรธด้วยน้ำเมตตา ใจจะเย็นสบาย', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 90%;"
-            onclick="openLeaf('ธรรมะข้อที่ 8: อวิหิงสา (ความไม่เบียดเบียน): การไม่ก่อทุกข์ให้ผู้อื่น มีความเมตตา')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 60%; left: 25%;" onclick="openLeaf('อวิหิงสา (Non-violence): การไม่เบียดเบียนคือมิตรภาพที่มอบให้แก่โลก', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 85%;"
-            onclick="openLeaf('ธรรมะข้อที่ 9: ขันติ (ความอดทน): ความอดทนต่ออุปสรรค คำวิพากษ์วิจารณ์ และความเหนื่อยยาก')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 65%; left: 70%;" onclick="openLeaf('ขันติ (Patience): ความอดทนเป็นตบะอย่างยิ่ง นำไปสู่ความสำเร็จ', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 66%;"
-            onclick="openLeaf('ธรรมะข้อที่ 10: อวิโรธนะ (ความไม่คลาดธรรม): การตั้งมั่นอยู่ในความถูกต้อง ไม่ประพฤติผิดจากหลักการที่ควรจะเป็น')">
-
-            <img src="leaf.png" class="leaf-img">
-
+        <div class="leaf-wrapper" style="top: 55%; left: 45%;" onclick="openLeaf('อวิโรธนะ (Justice): ความเที่ยงธรรมทำให้สังคมร่มเย็นเป็นสุข', event)">
+            <img src="leaf.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/892/892926.png'" class="leaf-img">
         </div>
+    </div>
 
+    <div class="container my-5">
+        <div class="card border-0 shadow-lg" style="border-radius: 30px; background: rgba(255,255,255,0.85);">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4" style="color: #8B4513; font-weight: bold;">📖 สรุปทศพิธราชธรรม ๑๐</h2>
+                <div class="row g-4" id="info-section">
+                    <p class="text-center">หลักธรรมแห่งการปกครองและการอยู่ร่วมกันอย่างสันติ</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="modal" class="modal">
         <div class="modal-content">
-            <h3 style="color: #8B4513;">คติธรรม</h3>
+            <h3 style="color: #8B4513;">✨ คติธรรมนำใจ ✨</h3>
             <hr>
-            <p id="dhamma-text" style="font-size: 1.2rem; line-height: 1.6;"></p>
-            <button class="close-btn" onclick="closeLeaf()">ปิดหน้าต่าง</button>
+            <p id="dhamma-text" style="font-size: 1.3rem; line-height: 1.6; color: #4a2708;"></p>
+            <button class="close-btn" onclick="closeLeaf()">สาธุ / ปิด</button>
         </div>
     </div>
 
-  
+    <audio id="bgMusic" loop>
+        <source src="Ylang Ylang.mp3" type="audio/mpeg">
+    </audio>
 
-      
-        // 4. ระบบใบไม้ร่วง (Background Animation)
-        function createFallingLeaf() {
-            const leaf = document.createElement('div');
-            leaf.classList.add('falling-leaf');
+    <script>
+        // 1. ระบบละอองธรรม (Particle Effect)
+        function createParticle(x, y) {
+            for (let i = 0; i < 8; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                document.body.appendChild(p);
+                
+                const size = Math.random() * 8 + 4;
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                
+                const destinationX = x + (Math.random() - 0.5) * 100;
+                const destinationY = y + (Math.random() - 0.5) * 100;
+                
+                p.animate([
+                    { transform: `translate(${x}px, ${y}px)`, opacity: 1 },
+                    { transform: `translate(${destinationX}px, ${destinationY}px)`, opacity: 0 }
+                ], {
+                    duration: 1000 + Math.random() * 500,
+                    easing: 'cubic-bezier(0, .9, .57, 1)',
+                    fill: 'forwards'
+                });
 
-            leaf.style.left = Math.random() * 100 + "vw";
-            const duration = Math.random() * 5 + 5;
-            leaf.style.animationDuration = duration + "s";
-            leaf.style.opacity = Math.random();
-
-            const size = Math.random() * 20 + 10 + "px";
-            leaf.style.width = size;
-            leaf.style.height = size;
-
-            document.body.appendChild(leaf);
-
-            setTimeout(() => { leaf.remove(); }, duration * 1000);
+                setTimeout(() => p.remove(), 1500);
+            }
         }
 
-        setInterval(createFallingLeaf, 600);
-    </script>
-
-</body>
-
-</html> อยู่ๆก็มีเสียงคนตะโกนตอนกดใบไม้แก้ให้หน่อย
+        // 2. ฟังก์ชันเปิด Modal พร้อมลูกเล่น
+        function openLeaf(text, event) {
+            // เล่นเสียงถ้ามี
+            try {
+                const clickSound = new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3
