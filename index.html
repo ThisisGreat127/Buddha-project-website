@@ -167,4 +167,72 @@
         <div class="leaf-wrapper" style="top: 1%; left: 26%;" onclick="openLeaf('ธรรมะข้อที่ 5: มัททวะ (ความอ่อนโยน): มีสัมมาคารวะ อ่อนโยนต่อบุคคลทั่วไป ไม่เย่อหยิ่ง')">
             <img src="leaf.png" class="leaf-img">
         </div>
-        <div class="leaf-wrapper" style="top: 10%; left: 5%;" onclick="openLeaf('ธรรมะข้อที่ 6: ตบะ (ความเพียร): การแผดเผากิเลส มีความมุ่งมั่น
+        <div class="leaf-wrapper" style="top: 10%; left: 5%;" onclick="openLeaf('ธรรมะข้อที่ 6: ตบะ (ความเพียร): การแผดเผากิเลส มีความมุ่งมั่นในการทำงานไม่ย่อท้อ')">
+            <img src="leaf.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 15%; left: 20%;" onclick="openLeaf('ธรรมะข้อที่ 7: อักโกธะ (ความไม่โกรธ): การระงับความโกรธ ใช้สติและเหตุผลในการแก้ปัญหา')">
+            <img src="leaf.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 90%;" onclick="openLeaf('ธรรมะข้อที่ 8: อวิหิงสา (ความไม่เบียดเบียน): การไม่ก่อทุกข์ให้ผู้อื่น มีความเมตตา')">
+            <img src="leaf.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 10%; left: 85%;" onclick="openLeaf('ธรรมะข้อที่ 9: ขันติ (ความอดทน): ความอดทนต่ออุปสรรค คำวิพากษ์วิจารณ์ และความเหนื่อยยาก')">
+            <img src="leaf.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 66%;" onclick="openLeaf('ธรรมะข้อที่ 10: อวิโรธนะ (ความไม่คลาดธรรม): การตั้งมั่นอยู่ในความถูกต้อง ไม่ประพฤติผิดจากหลักการที่ควรจะเป็น')">
+            <img src="leaf.png" class="leaf-img">
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 style="color: #8B4513;">คติธรรม</h3>
+            <hr>
+            <p id="dhamma-text" style="font-size: 1.2rem; line-height: 1.6;"></p>
+            <button class="close-btn" onclick="closeLeaf()">ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. ฟังก์ชันเปิดหน้าต่าง
+        function openLeaf(text) {
+            document.getElementById('dhamma-text').innerText = text;
+            document.getElementById('modal').style.display = "block";
+        }
+
+        // 2. ฟังก์ชันปิดหน้าต่าง
+        function closeLeaf() {
+            document.getElementById('modal').style.display = "none";
+        }
+
+        // 3. ปิด Modal เมื่อคลิกพื้นที่ว่าง
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 4. ระบบใบไม้ร่วงพื้นหลัง
+        function createFallingLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('falling-leaf');
+
+            leaf.style.left = Math.random() * 100 + "vw";
+            const duration = Math.random() * 5 + 5;
+            leaf.style.animationDuration = duration + "s";
+            leaf.style.opacity = Math.random();
+
+            const size = Math.random() * 20 + 20 + "px";
+            leaf.style.width = size;
+            leaf.style.height = size;
+
+            document.body.appendChild(leaf);
+
+            setTimeout(() => { leaf.remove(); }, duration * 1000);
+        }
+
+        setInterval(createFallingLeaf, 600);
+    </script>
+</body>
+</html>
