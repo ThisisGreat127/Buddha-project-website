@@ -37,7 +37,6 @@
             border-radius: 15px;
             background: white;
             line-height: 0;
-            /* แก้ช่องว่างใต้รูป */
         }
 
         .img-16-9 {
@@ -67,25 +66,17 @@
 
         .leaf-img {
             width: 60px;
-            /* ปรับขนาดให้พอดี */
             height: auto;
             animation: sway 3s infinite ease-in-out;
             transform-origin: top center;
         }
 
         @keyframes sway {
-
-            0%,
-            100% {
-                transform: rotate(-8deg);
-            }
-
-            50% {
-                transform: rotate(8deg);
-            }
+            0%, 100% { transform: rotate(-8deg); }
+            50% { transform: rotate(8deg); }
         }
 
-        /* 4. หน้าต่าง Modal แบบกระจกฝ้า */
+        /* 4. หน้าต่าง Modal */
         .modal {
             display: none;
             position: fixed;
@@ -111,15 +102,8 @@
         }
 
         @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .close-btn {
@@ -145,16 +129,13 @@
             z-index: 999;
             pointer-events: none;
             background-image: url('leaf.png');
-            /* ตรวจสอบชื่อไฟล์ให้ถูกต้อง */
             background-size: contain;
             background-repeat: no-repeat;
             animation: fall linear forwards;
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
+            to { transform: translateY(110vh) rotate(360deg); }
         }
     </style>
 </head>
@@ -169,135 +150,21 @@
     </header>
 
     <div class="tree-container">
-
         <img src="buddha-bg2.png" class="img-fluid img-16-9" alt="Buddha Background">
 
-
-
-        <div class="leaf-wrapper" style="top: 2%; left: 35%;"
-            onclick="openLeaf('ธรรมะข้อที่ 1: ทาน (การให้): การสละทรัพย์สิ่งของเพื่อสงเคราะห์ผู้อื่น')">
-
+        <div class="leaf-wrapper" style="top: 2%; left: 35%;" onclick="openLeaf('ธรรมะข้อที่ 1: ทาน (การให้): การสละทรัพย์สิ่งของเพื่อสงเคราะห์ผู้อื่น')">
             <img src="leaf.png" class="leaf-img">
-
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 50%;"
-            onclick="openLeaf('ธรรมะข้อที่ 2: ศีล (ความประพฤติดี): การรักษากาย วาจา ให้สะอาดบริสุทธิ์')">
-
+        <div class="leaf-wrapper" style="top: 1%; left: 50%;" onclick="openLeaf('ธรรมะข้อที่ 2: ศีล (ความประพฤติดี): การรักษากาย วาจา ให้สะอาดบริสุทธิ์')">
             <img src="leaf.png" class="leaf-img">
-
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 70%;"
-            onclick="openLeaf('ธรรมะข้อที่ 3: บริจาค (การเสียสละ): การเสียสละความสุขส่วนตนเพื่อประโยชน์ส่วนรวม')">
-
+        <div class="leaf-wrapper" style="top: 1%; left: 70%;" onclick="openLeaf('ธรรมะข้อที่ 3: บริจาค (การเสียสละ): การเสียสละความสุขส่วนตนเพื่อประโยชน์ส่วนรวม')">
             <img src="leaf.png" class="leaf-img">
-
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 10%;"
-            onclick="openLeaf('ธรรมะข้อที่ 4: อาชชวะ (ความซื่อตรง): มีความจริงใจ ไม่หลอกลวง ปฏิบัติหน้าที่ด้วยความสุจริต')">
-
+        <div class="leaf-wrapper" style="top: 1%; left: 10%;" onclick="openLeaf('ธรรมะข้อที่ 4: อาชชวะ (ความซื่อตรง): มีความจริงใจ ไม่หลอกลวง ปฏิบัติหน้าที่ด้วยความสุจริต')">
             <img src="leaf.png" class="leaf-img">
-
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 26%;"
-            onclick="openLeaf('ธรรมะข้อที่ 5: มัททวะ (ความอ่อนโยน): มีสัมมาคารวะ อ่อนโยนต่อบุคคลทั่วไป ไม่เย่อหยิ่ง')">
-
+        <div class="leaf-wrapper" style="top: 1%; left: 26%;" onclick="openLeaf('ธรรมะข้อที่ 5: มัททวะ (ความอ่อนโยน): มีสัมมาคารวะ อ่อนโยนต่อบุคคลทั่วไป ไม่เย่อหยิ่ง')">
             <img src="leaf.png" class="leaf-img">
-
         </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 10%;"
-            onclick="openLeaf('ธรรมะข้อที่ 6: ตบะ (ความเพียร): การแผดเผากิเลส มีความมุ่งมั่นในการทำงานไม่ย่อท้อ')">
-
-            <img src="leaf.png" class="leaf-img">
-
-        </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 20%;"
-            onclick="openLeaf('ธรรมะข้อที่ 7: อักโกธะ (ความไม่โกรธ): การระงับความโกรธ ใช้สติและเหตุผลในการแก้ปัญหา')">
-
-            <img src="leaf.png" class="leaf-img">
-
-        </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 90%;"
-            onclick="openLeaf('ธรรมะข้อที่ 8: อวิหิงสา (ความไม่เบียดเบียน): การไม่ก่อทุกข์ให้ผู้อื่น มีความเมตตา')">
-
-            <img src="leaf.png" class="leaf-img">
-
-        </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 85%;"
-            onclick="openLeaf('ธรรมะข้อที่ 9: ขันติ (ความอดทน): ความอดทนต่ออุปสรรค คำวิพากษ์วิจารณ์ และความเหนื่อยยาก')">
-
-            <img src="leaf.png" class="leaf-img">
-
-        </div>
-
-
-
-        <div class="leaf-wrapper" style="top: 1%; left: 66%;"
-            onclick="openLeaf('ธรรมะข้อที่ 10: อวิโรธนะ (ความไม่คลาดธรรม): การตั้งมั่นอยู่ในความถูกต้อง ไม่ประพฤติผิดจากหลักการที่ควรจะเป็น')">
-
-            <img src="leaf.png" class="leaf-img">
-
-        </div>
-
-    </div>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <h3 style="color: #8B4513;">คติธรรม</h3>
-            <hr>
-            <p id="dhamma-text" style="font-size: 1.2rem; line-height: 1.6;"></p>
-            <button class="close-btn" onclick="closeLeaf()">ปิดหน้าต่าง</button>
-        </div>
-    </div>
-
-  
-
-      
-        // 4. ระบบใบไม้ร่วง (Background Animation)
-        function createFallingLeaf() {
-            const leaf = document.createElement('div');
-            leaf.classList.add('falling-leaf');
-
-            leaf.style.left = Math.random() * 100 + "vw";
-            const duration = Math.random() * 5 + 5;
-            leaf.style.animationDuration = duration + "s";
-            leaf.style.opacity = Math.random();
-
-            const size = Math.random() * 20 + 10 + "px";
-            leaf.style.width = size;
-            leaf.style.height = size;
-
-            document.body.appendChild(leaf);
-
-            setTimeout(() => { leaf.remove(); }, duration * 1000);
-        }
-
-        setInterval(createFallingLeaf, 600);
-    </script>
-
-</body>
-
-</html> อยู่ๆก็มีเสียงคนตะโกนตอนกดใบไม้แก้ให้หน่อย
+        <div class="leaf-wrapper" style="top: 10%; left: 5%;" onclick="openLeaf('ธรรมะข้อที่ 6: ตบะ (ความเพียร): การแผดเผากิเลส มีความมุ่งมั่น
