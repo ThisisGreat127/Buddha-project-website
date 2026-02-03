@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>ธรรมะจรรโลงใจ - ทศพิธราชธรรม</title>
+    <style>
+        :root {
+            --primary-brown: #8B4513;
+            --dark-brown: #5d2e0a;
+            --zen-bg: #fdf5e6;
+        }
+
+        body {
+            background-color: var(--zen-bg);
+            font-family: 'Sarabun', sans-serif;
+            margin: 0;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header h1.box {
+            color: white;
+            background: linear-gradient(135deg, #2c3e50, #000000);
+            padding: 25px;
+            margin: 0;
+            transition: 0.5s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        header h1.box:hover {
+            background: var(--primary-brown);
+            letter-spacing: 2px;
+        }
+
+        /* Tree & Image Container */
+        .tree-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            aspect-ratio: 16 / 9;
+            /* คุมสัดส่วน 16:9 */
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            /* กันใบไม้ล้นตอนเริ่ม */
+        }
+        
+
+        .img-16-9 {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Leaf Style */
+        .leaf-wrapper {
+            position: absolute;
+            z-index: 100;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 7%;
+            min-width: 40px;
+        }
+
+        /* แก้ไขส่วนเดิม ให้มีการเรืองแสงทอง */
+        .leaf-wrapper:hover {
+            transform: scale(1.3) rotate(10deg);
+            z-index: 101;
+        }
+
+        .leaf-img {
+            width: 100%;
+            /* ใส่ Transition เพื่อให้ตอนเม้าส์ชี้ แสงค่อยๆ สว่างขึ้นมา (Smooth) */
+            transition: filter 0.3s ease;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+            animation: sway 4s infinite ease-in-out;
+            transform-origin: top center;
+        }
+
+        /* เมื่อเอาเมาส์มาวาง (Hover) ที่ตัว wrapper ให้รูปใบไม้เกิดการเรืองแสงทอง */
+        .leaf-wrapper:hover .leaf-img {
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 25px rgba(255, 223, 0, 0.5));
+        }
+
+        @keyframes sway {
+
+            0%,
+            100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        /* Animation เมื่อใบไม้ร่วง (หลังคลิก) */
+        .leaf-fall-animation {
+            animation: leafFall 2.5s forwards ease-in !important;
+            pointer-events: none;
+            /* คลิกซ้ำไม่ได้ขณะร่วง */
+        }
+
+        @keyframes leafFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(600px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Modal Customization */
+        .custom-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background: white;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 30px;
+            text-align: center;
+            border-bottom: 8px solid var(--primary-brown);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            background: var(--primary-brown);
+            color: white;
+            border: none;
+            padding: 10px 40px;
+            border-radius: 50px;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            background: var(--dark-brown);
+            transform: scale(1.05);
+        }
+
+        /* Falling Leaf Decoration */
+        .falling-leaf {
+            position: fixed;
+            /* ให้อยู่กับที่ แม้จะเลื่อนหน้าจอ */
+            top: -50px;
+            /* เริ่มจากด้านบนของหน้าจอนิดหน่อย */
+            z-index: 9999;
+            /* ให้ลอยอยู่เหนือทุกอย่าง */
+            pointer-events: none;
+            /* ไม่ให้คลิกโดนใบไม้ */
+            opacity: 0.2;
+            /* ความโปร่งใส */
+            animation-iteration-count: infinite;
+            /* วนซ้ำไม่มีที่สิ้นสุด */
+            animation-timing-function: linear;
+            /* เคลื่อนไหวเป็นเส้นตรง */
+        }
+
+        /* Keyframes สำหรับการร่วงและหมุนของใบไม้ */
+        @keyframes fall {
+            0% {
+                transform: translateY(0vh) rotate(0deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                /* ร่วงลงไป 110% ของความสูงหน้าจอ และหมุน 2 รอบ */
+                opacity: 0;
+                /* จางหายไปเมื่อถึงข้างล่าง */
+            }
+        }
+
+        /* ปุ่มเปิด-ปิดเสียง */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: var(--primary-brown);
+            color: white;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .audio-control:hover {
+            transform: scale(1.1);
+            background: var(--dark-brown);
+        }
+
+        .audio-icon {
+            font-size: 24px;
+        }
+        /* สั่งให้หัวข้อธรรมะทุกข้อเปลี่ยนเป็นสีน้ำตาลทอง */
+        .card-body h6.fw-bold {
+            color: var(--primary-brown);
+            font-size: 1.1rem; /* ปรับขนาดให้ใหญ่ขึ้นนิดนึงดูเด่นดีครับ */
+        }
+    </style>
+</head>
+
+<body>
+    <button id="musicToggle" class="audio-control" onclick="toggleMusic()">
+        <span id="musicIcon" class="audio-icon">🔇</span>
+    </button>
+
+    <header class="text-center">
+        <a href="https://youtu.be/VcT0POkQI6M?si=1C9bdoVE-7i-JiSr" target="_blank" style="text-decoration: none;">
+            <h1 class="box">ธรรมะสอนใจ</h1>
+        </a>
+        <p class="mt-3">เลือกคลิกที่ <b>ใบโพธิ์ทอง</b> เพื่อศึกษาหลักธรรม</p>
+    </header>
+
+    <div class="tree-container" id="mainContainer">
+        <img src="buddha-bg2.png" class="img-16-9" alt="Buddha Background">
+
+        <div class="leaf-wrapper" style="top: 1%; left: 15%;" onclick="openLeaf(this, 1)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 25%;" onclick="openLeaf(this, 2)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 35%;" onclick="openLeaf(this, 3)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 40%;" onclick="openLeaf(this, 4)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 2%; left: 50%;" onclick="openLeaf(this, 5)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 65%;" onclick="openLeaf(this, 6)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 75%;" onclick="openLeaf(this, 7)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 80%;" onclick="openLeaf(this, 8)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 1%; left: 90%;" onclick="openLeaf(this, 9)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+        <div class="leaf-wrapper" style="top: 2%; left: 5%;" onclick="openLeaf(this, 10)">
+            <img src="gold leaf ver 2.png" class="leaf-img">
+        </div>
+    </div>
+
+    <div id="infoModal" class="custom-modal">
+        <div class="modal-card">
+            <h2 id="modalTitle" style="color: var(--primary-brown);"></h2>
+            <hr>
+            <p id="modalBody" class="fs-5"></p>
+            <button class="close-btn" onclick="closeModal()">ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+                <div class="d-flex align-items-center mb-4">
+                    <div
+                        style="width: 8px; height: 40px; background: var(--primary-brown); border-radius: 4px; margin-right: 15px;">
+                    </div>
+                    <h2 style="color: var(--primary-brown); font-weight: bold; margin: 0;">
+                        หลักทศพิธราชธรรม (The Ten Royal Virtues)
+                    </h2>
+                </div>
+
+                <div class="card border-0 shadow-sm"
+                    style="border-radius: 25px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);">
+                    <div class="card-body p-4 p-md-5">
+                        <p class="lead text-muted mb-5 text-center">
+                            "จริยวัตรที่ผู้ปกครองและบุคคลทั่วไปควรยึดถือปฏิบัติ
+                            เพื่อสร้างความสุขและความสงบเรียบร้อยแก่สังคม"
+                        </p>
+
+                        <div class="row g-4">
+                            <div class="col-lg-6">
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๑</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">ทาน (Giving)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: บริจาคสิ่งของ, อาสาสมัครช่วยงาน,
+                                            การแบ่งปันความรู้และคำแนะนำที่เป็นประโยชน์ต่อเพื่อนร่วมงาน</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๒</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">ศีล (Morality)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: ปฏิบัติตามกฎจราจร, ไม่พูดโกหก,
+                                            ไม่นินทา, รักษาศีล 5 ในชีวิตประจำวัน</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๓</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">บริจาค (Altruism)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: เสียสละเวลาส่วนตัวมาทำกิจกรรมจิตอาสา,
+                                            ช่วยงานส่วนรวมของชุมชนหรือออฟฟิศ</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๔</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">อาชชวะ (Honesty)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: ไม่คดโกงในการทำงาน,
+                                            ซื่อสัตย์ต่อคู่ค้าหรือเพื่อนร่วมงาน, ไม่แอบอ้างผลงานผู้อื่น</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๕</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">มัททวะ (Gentleness)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: พูดจาไพเราะ,
+                                            อ่อนน้อมถ่อมตนต่อผู้ใหญ่, ให้เกียรติผู้อื่นแม้จะต่ำกว่า</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๖</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">ตบะ (Self-Control)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง:
+                                            มุ่งมั่นทำหน้าที่ของตนเองให้ดีที่สุดโดยไม่ย่อท้อ, อดทนต่อสิ่งเร้าหรือกิเลส
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๗</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">อักโกธะ (Non-anger)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: การให้อภัย,
+                                            รับฟังความคิดเห็นที่ต่างด้วยเหตุผลแทนอารมณ์, ไม่ใช้อารมณ์โกรธตัดสินเรื่องราว
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๘</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">อวิหิงสา (Non-violence)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: ไม่เอาเปรียบผู้อื่น,
+                                            ไม่ใช้อำนาจกดขี่เพื่อนร่วมงาน, ไม่รังแกสัตว์</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๙</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">ขันติ (Patience)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: อดทนต่อคำติฉินนินทา,
+                                            ไม่ท้อแท้เมื่อเจอปัญหาอุปสรรค, อดทนต่อความเหนื่อยล้า
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="badge-num me-3">๑๐</div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">อวิโรธนะ (Justice)</h6>
+                                        <p class="text-muted small mb-0">ตัวอย่าง: ยึดมั่นในกฎกติกาและหลักความยุติธรรม,
+                                            ไม่เอนเอียงเพราะความโลภ </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-4 border-top text-center">
+                            <small class="text-muted">อ้างอิง: พระไตรปิฎก เล่มที่ ๒๘ ขุททกนิกาย ชาดก</small><br>
+                            <small class="text-muted">ธรรมะสวัสดีครับ 🙏✨</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <audio id="myAudio" loop>
+        <source src="Ylang Ylang.mp3.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ข้อมูลทศพิธราชธรรม 10
+        const dharmaData = {
+            1: { title: "1. ทาน (การให้)", desc: "การสละทรัพย์สิ่งของเพื่อช่วยเหลือผู้อื่น และเพื่อส่วนรวม" },
+            2: { title: "2. ศีล (ความประพฤติดี)", desc: "การรักษากาย วาจา ให้สะอาดบริสุทธิ์ ไม่ทำชั่ว" },
+            3: { title: "3. บริจาค (การเสียสละ)", desc: "การเสียสละความสุขส่วนตนเพื่อความสุขของผู้อื่น" },
+            4: { title: "4. อาชชวะ (ความซื่อตรง)", desc: "มีความจริงใจ ไม่หลอกลวง ปฏิบัติหน้าที่ด้วยความสุจริต" },
+            5: { title: "5. มัททวะ (ความอ่อนโยน)", desc: "มีสัมมาคารวะ มีกิริยาสุภาพ อ่อนน้อมถ่อมตน" },
+            6: { title: "6. ตบะ (ความเพียร)", desc: "ความพยายามไม่ย่อท้อในการทำความดีและหน้าที่" },
+            7: { title: "7. อักโกธะ (ความไม่โกรธ)", desc: "การระงับความโกรธ ใช้สติและเมตตาแก้ปัญหา" },
+            8: { title: "8. อวิหิงสา (ความไม่เบียดเบียน)", desc: "การไม่ก่อทุกข์หรือเบียดเบียนผู้อื่นและสัตว์โลก" },
+            9: { title: "9. ขันติ (ความอดทน)", desc: "อดทนต่ออุปสรรค ความยากลำบาก และคำวิจารณ์" },
+            10: { title: "10. อวิโรธนะ (ความไม่คลาดธรรม)", desc: "การตั้งมั่นอยู่ในความถูกต้อง ไม่ประพฤติผิดกฎระเบียบ" }
+        };
+
+        // ฟังก์ชันเปิด Modal และทำให้ใบไม้ร่วง
+        function openLeaf(element, id) {
+            const data = dharmaData[id];
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalBody').innerText = data.desc;
+            document.getElementById('infoModal').style.display = 'flex';
+
+            // ใส่แอนิเมชั่นใบไม้ร่วง
+            element.classList.add('leaf-fall-animation');
+
+            // เล่นเพลง (ถ้ายังไม่ได้เล่น)
+            playMusic();
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+        // ฟังก์ชันสร้างและควบคุมใบไม้ร่วงแบบอลังการ
+        function createFallingLeaf() {
+            const leaf = document.createElement('img'); // สร้างแท็ก <img>
+            leaf.src = 'gold leaf ver 2.png'; // ใช้รูปใบไม้ทองของเรา
+            leaf.classList.add('falling-leaf'); // ใส่ Class เพื่อใช้ Style และ Animation
+
+            // สุ่มตำแหน่งเริ่มต้นด้านบน
+            leaf.style.left = Math.random() * 100 + 'vw';
+
+            // สุ่มขนาดใบไม้
+            const size = Math.random() * 30 + 20; // ขนาด 20px ถึง 50px
+            leaf.style.width = size + 'px';
+            leaf.style.height = 'auto'; // รักษาสัดส่วน
+
+            // สุ่มเวลา animation และ delay เพื่อให้ใบไม้ร่วงไม่พร้อมกัน
+            const animationDuration = Math.random() * 8 + 7; // 7 ถึง 15 วินาที
+            const animationDelay = Math.random() * 5; // 0 ถึง 5 วินาที delay
+            leaf.style.animation = `fall ${animationDuration}s ${animationDelay}s infinite linear`;
+
+            document.body.appendChild(leaf); // เพิ่มใบไม้เข้าไปในหน้าเว็บ
+
+            // ลบใบไม้ออกจาก DOM เมื่อ animation จบ เพื่อไม่ให้สะสมในหน่วยความจำ
+            leaf.addEventListener('animationend', () => {
+                leaf.remove();
+            });
+        }
+
+        // สร้างใบไม้ร่วงเรื่อยๆ ทุกๆ 0.5 วินาที (สามารถปรับได้ตามความชอบ)
+        setInterval(createFallingLeaf, 5000);
+
+        // ระบบเสียง
+        function playMusic() {
+            var audio = document.getElementById("myAudio");
+            var icon = document.getElementById("musicIcon");
+            
+            // ตั้งค่าระดับเสียง (0.0 ถึง 1.0) 
+            // 1.0 คือดังที่สุดเท่าที่ไฟล์ต้นฉบับจะอำนวย
+            audio.volume = 1.0; 
+
+            audio.play().then(() => {
+                icon.innerText = "🔊";
+            }).catch(function (error) {
+                console.log("รอ User คลิกเพื่อเริ่มเล่นเสียง");
+            });
+        }
+
+        // ปิด Modal เมื่อคลิกพื้นหลัง
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('infoModal')) {
+                closeModal();
+            }
+        }
+        function toggleMusic() {
+            var audio = document.getElementById("myAudio");
+            var icon = document.getElementById("musicIcon");
+
+            if (audio.paused) {
+                audio.play();
+                icon.innerText = "🔊"; // เปลี่ยนไอคอนเป็นเปิดเสียง
+                console.log("Music Playing");
+            } else {
+                audio.pause();
+                icon.innerText = "🔇"; // เปลี่ยนไอคอนเป็นปิดเสียง
+                console.log("Music Paused");
+            }
+        }
+
+        // ปรับปรุงฟังก์ชัน playMusic เดิมให้เปลี่ยนไอคอนด้วย
+        function playMusic() {
+            var audio = document.getElementById("myAudio");
+            var icon = document.getElementById("musicIcon");
+
+            audio.play().then(() => {
+                icon.innerText = "🔊";
+            }).catch(function (error) {
+                console.log("รอ User คลิกเพื่อเริ่มเล่นเสียง");
+            });
+        }
+    </script>
+</body>
+
+</html>
