@@ -273,20 +273,7 @@
         </div>
     </div>
 
-    <audio id="bgMusic" loop>
-        <source src="guitar-sound.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-
-
-        // 2. ระบบเพลงพื้นหลัง
-        const bgMusic = document.getElementById("bgMusic");
-        function startExperience() {
-            bgMusic.play().catch(() => console.log("รอ User Click"));
-            document.removeEventListener('click', startExperience);
-        }
-        document.addEventListener('click', startExperience);
+  
 
       
         // 4. ระบบใบไม้ร่วง (Background Animation)
