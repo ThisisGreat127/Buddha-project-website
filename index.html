@@ -491,7 +491,31 @@
         }
         setInterval(createFallingLeaf, 600);
     </script>
+<script>
+    function openLeaf(text) {
+        const modal = document.getElementById('modal');
+        const content = document.getElementById('dhamma-text');
+        
+        if (modal && content) {
+            content.innerText = text; // ใส่ข้อความ
+            modal.style.display = "block"; // เปิดหน้าต่าง
+        } else {
+            console.error("หา Element 'modal' หรือ 'dhamma-text' ไม่เจอครับ");
+        }
+    }
 
+    function closeLeaf() {
+        document.getElementById('modal').style.display = "none";
+    }
+
+    // คลิกนอกหน้าต่างแล้วให้ปิด
+    window.onclick = function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 </body>
 
 </html>
