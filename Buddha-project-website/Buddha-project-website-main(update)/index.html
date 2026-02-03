@@ -288,22 +288,7 @@
         }
         document.addEventListener('click', startExperience);
 
-        // 3. ฟังก์ชันเปิด-ปิด Modal พร้อมเสียง
-        function openLeaf(text) {
-            clickSound.currentTime = 0;
-            clickSound.play();
-            document.getElementById('dhamma-text').innerText = text;
-            document.getElementById('modal').style.display = 'block';
-        }
-
-        function closeLeaf() {
-            document.getElementById('modal').style.display = 'none';
-        }
-
-        window.onclick = function (event) {
-            if (event.target == document.getElementById('modal')) closeLeaf();
-        }
-
+      
         // 4. ระบบใบไม้ร่วง (Background Animation)
         function createFallingLeaf() {
             const leaf = document.createElement('div');
